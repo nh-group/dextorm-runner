@@ -1,0 +1,42 @@
+app:
+  diffAlgorithm: gmethods
+  instrumentedPackage: fr
+  issueCollector: dummy
+  publisher: json
+  sourceRootDir: src/main/java
+differs:
+  bmethods:
+    diffAlgorithm: BLAME
+    instructions: false
+    methods: true
+  gmethods:
+    diffAlgorithm: GUMTREE
+    instructions: true
+    methods: true
+issueCollectors:
+  github:
+    basic-cli-uni:
+      branch: master
+      gitHubRepoName: nh-group/basic-cli-uni
+    dnsjava:
+      gitHubRepoName: dnsjava/dnsjava
+    dummy:
+      branch: master
+      gitHubRepoName: nherbaut/dextorm-dummy-project
+    hlf:
+      branch: main
+      gitHubRepoName: hyperledger/fabric-sdk-java
+publishers:
+  filePublishers:
+    console1:
+      filePath: stdout
+  grpcPublishers:
+    grpc1:
+      host: localhost
+      port: 8081
+  jsonFilePublisher:
+    json:
+      targetDir: res
+  restPublishers:
+    rest1:
+      baseUrl: http://localhost:3000/coverage/issue/all
