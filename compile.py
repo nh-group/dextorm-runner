@@ -8,6 +8,7 @@ import requests
 import argparse
 import subprocess
 import glob
+import shutil
 
 parser = argparse.ArgumentParser(description='Run dextorm experiment')
 parser.add_argument('dextorm_jar_path', help="the path to the dextorm executable")
@@ -35,6 +36,9 @@ with open(args.dextorm_conf_path) as f:
     conf=yaml.load(f,Loader=Loader)
 
 for targets_xml_file in targets_xml_files:
+    if os.path.exists("tmp-json"):
+        shutil.rmtree("tmp-json")
+    os.mkdir("tmp-json")
     for temp_json in glob.glob('*.json'):
         os.remove(temp_json)
     print(f"processing {targets_xml_file}")
@@ -46,10 +50,11 @@ for targets_xml_file in targets_xml_files:
         subprocess.run(["java","-jar", args.dextorm_jar_path, "dextorm.yaml", targets_xml_file])
         
     data={}
-    for dirpath, dirnames, filenames in os.walk("."):
+
+    for dirpath, dirnames, filenames in os.walk("tmp-json"):
         for filename in [fn for fn in filenames if fn.endswith(".json")]:
-            with open(filename) as f:
-                print(f"loading json file {filename}")
+            with open(os.path.join(dirpath,filename)) as f:
+                print(f"loading json file {dirpath}/{filename}")
                 json_content=json.load(f)
                 if (items := list(json_content.items()))[0][0] not in data:
                     data.update(json_content)
@@ -59,6 +64,7 @@ for targets_xml_file in targets_xml_files:
     
     with open(f"{targets_xml_file}.json","w") as result_json_file:
         json.dump(data, result_json_file)
+    shutil.rmtree("tmp-json")
     
 
 

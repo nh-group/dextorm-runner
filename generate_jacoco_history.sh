@@ -39,6 +39,11 @@ for commit in $COMMITS
     mvn -Dmaven.repo.remote=https://maven.miage.dev/snapshots fr.pantheonsorbonne.cri:dextorm-enforcer-plugin:1.0.0-SNAPSHOT:enforce
     mvn clean package jacoco:report -fn -f dextorm-effective-pom.xml
     EPOCH_LAST_COMMIT=$(git log -1 --format=%ct)
-    cp $(find . |grep jacoco.xml)  $SCRIPT_DIR/res/${EPOCH_LAST_COMMIT}-$commit-jacoco.xml
+    JACOCO_REPORT=$(find . |grep jacoco.xml)
+    if [ -z "$JACOCO_REPORT" ]; then
+      echo "empty report, skipping"
+    else
+      cp $(find . |grep jacoco.xml)  $SCRIPT_DIR/res/${EPOCH_LAST_COMMIT}-$commit-jacoco.xml
+    fi
 fi    
 done

@@ -1,0 +1,11 @@
+version: '3'
+services:
+
+  backend:
+    image: nherbaut/dextorm-backend-gui
+    ports:
+      - 3000:3000
+  guil:
+    image: nherbaut/dextorm-gui
+    ports:
+      - 8080:8080

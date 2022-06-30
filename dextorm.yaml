@@ -36,7 +36,7 @@ publishers:
       port: 8081
   jsonFilePublisher:
     json:
-      targetDir: res
+      targetDir: tmp-json
   restPublishers:
     rest1:
       baseUrl: http://localhost:3000/coverage/issue/all
