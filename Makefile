@@ -21,9 +21,9 @@ gui-stop:
 	docker-compose down -d
 
 bootstrap: clean
-	mvn -DstripClassifier=true -DstripVersion=true -DoutputAbsoluteArtifactFilename=true -DoutputDirectory=. -Dtransitive=false -Dartifact=fr.pantheonsorbonne.cri:dextorm:LATEST -DremoteRepositories=miage::default::https://maven.miage.def/releases dependency:copy
+	wget -nc https://maven.miage.dev/releases/fr/pantheonsorbonne/cri/dextorm/1.3.0/dextorm-1.3.0.jar
 	mkdir bin
-	mv *.jar bin/dextorm.jar
+	cp *.jar bin/dextorm.jar
 	git clone --branch $(shell python get_repo_addr.py -b) https://github.com/$(shell python get_repo_addr.py) tmp 
 
 gather:
