@@ -22,6 +22,7 @@ gui-stop:
 
 bootstrap: clean
 	wget -nc https://maven.miage.dev/releases/fr/pantheonsorbonne/cri/dextorm/1.3.0/dextorm-1.3.0.jar
+	mvn dependency:get -Dartifact=fr.pantheonsorbonne.cri:dextorm-enforcer-plugin:1.0.0-SNAPSHOT -DremoteRepositories=miage::default::https://maven.miage.dev/snapshots
 	mkdir bin
 	cp *.jar bin/dextorm.jar
 	git clone --branch $(shell python get_repo_addr.py -b) https://github.com/$(shell python get_repo_addr.py) tmp 

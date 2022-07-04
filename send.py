@@ -31,5 +31,6 @@ for to_send_file in sorted(to_send_files):
         for k, v in conf["publishers"]["restPublishers"].items():
             requests.post(v["baseUrl"], json=data, headers={
                         "Content-type": "application/json"})
-    print(f"sent {to_send_file}")
+    print(f"press enter to send coverage information from file {to_send_file}")
     input()
+    print(f"sent {to_send_file}")
