@@ -1,4 +1,3 @@
-set -e
 set -x
 # $1 = the path of the repo
 # $2 = number of commit to keep
@@ -38,8 +37,11 @@ for commit in $COMMITS
  if [ -f pom.xml ]; then
     mvn -Dmaven.repo.remote=https://maven.miage.dev/snapshots fr.pantheonsorbonne.cri:dextorm-enforcer-plugin:1.0.0-SNAPSHOT:enforce
     mvn clean package jacoco:report -fn -f dextorm-effective-pom.xml
+    #echo "press enter to gather jacoco report"
+    #read "dummy "
     EPOCH_LAST_COMMIT=$(git log -1 --format=%ct)
-    JACOCO_REPORT=$(find . |grep jacoco.xml)
+    JACOCO_REPORT="$(find . |grep jacoco.xml)"
+    echo jacoco report file : $JACOCO_REPORT
     if [ -z "$JACOCO_REPORT" ]; then
       echo "empty report, skipping"
     else

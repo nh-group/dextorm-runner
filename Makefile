@@ -11,6 +11,7 @@ clean:
 	rm -rf res
 	rm -rf tmp
 	rm -rf bin
+	rm -rf tmp-json
 
 gui:
 	docker-compose up 

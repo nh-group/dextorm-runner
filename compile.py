@@ -65,6 +65,7 @@ for targets_xml_file in targets_xml_files:
     
     with open(f"{targets_xml_file}.json","w") as result_json_file:
         json.dump(data, result_json_file)
+    input()
     shutil.rmtree("tmp-json")
     
 
