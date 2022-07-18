@@ -5,13 +5,21 @@ app:
   publisher: json
   sourceRootDir: src/main/java
 differs:
+  blines:
+    diffAlgorithm: BLAME
+    instructions: true
+    methods: false
   bmethods:
     diffAlgorithm: BLAME
     instructions: false
     methods: true
-  gmethods:
+  glines:
     diffAlgorithm: GUMTREE
     instructions: true
+    methods: false
+  gmethods:
+    diffAlgorithm: GUMTREE
+    instructions: false
     methods: true
 issueCollectors:
   github:

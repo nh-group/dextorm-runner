@@ -56,11 +56,17 @@ for targets_xml_file in targets_xml_files:
             with open(os.path.join(dirpath,filename)) as f:
                 print(f"loading json file {dirpath}/{filename}")
                 json_content=json.load(f)
-                items = list(json_content.items())
-                if items[0][0] not in data:
+                usId,value = list(json_content.items())[0]
+                
+                if usId not in data:
                     data.update(json_content)
+                    continue
+                algotype,measurement=list(value.items())[0]
+                if algotype in data[usId]:
+                    data[usId][algotype].update(measurement)
                 else:
-                    data[items[0][0]].update(items[0][1])
+                    data[usId].update({algotype:measurement})
+                
         break
     
     with open(f"{targets_xml_file}.json","w") as result_json_file:
