@@ -1,4 +1,3 @@
-set -x
 # $1 = the path of the repo
 # $2 = number of commit to keep
 # $3 = the optional branch name (otherwise, we pick master)
@@ -33,6 +32,7 @@ COMMITS=$(git log --oneline --skip=$COMMITS_TO_SKIP|cut -c 1-7|tac)
 
 for commit in $COMMITS
  do
+	 echo "##################### deadling with commit $commit $(git show -s --oneline $commit)"
  git checkout $commit
  if [ -f pom.xml ]; then
     mvn -Dmaven.repo.remote=https://maven.miage.dev/snapshots fr.pantheonsorbonne.cri:dextorm-enforcer-plugin:1.0.0-SNAPSHOT:enforce
